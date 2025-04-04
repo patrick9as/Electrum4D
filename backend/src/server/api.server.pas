@@ -5,8 +5,11 @@ interface
 uses
   Horse,
   Horse.Jhonson,
+  Horse.CORS,
   api.controller.perguntas,
-  api.controller.respostas, api.controller.home,
+  api.controller.respostas,
+  api.controller.home,
+  api.controller.login,
   Horse.StaticFiles;
 
 type
@@ -40,19 +43,17 @@ var
   perguntas: TPerguntasController;
   respostas: TRespostasController;
   home: THomeController;
+  login: TLoginController;
 begin
   THorse.use(Jhonson());
   //Carregar as rotas
   perguntas.New();
   respostas.New();
-  THorse.Use('/', HorseStaticFile('dist', ['index.html']));
+  THorse.Use('/', HorseStaticFile('www', ['index.html']));
 
+  THorse.Use(CORS);
 
-//  THorse.Get('/',
-//    procedure (Req: THorseRequest; Res: THorseResponse)
-//    begin
-//      Res.Send('API de Atendimento');
-//    end);
+  login.New();
 end;
 
 destructor TServer.Destroy;

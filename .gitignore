@@ -69,9 +69,13 @@ __recovery/
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
 
-#node
+# Delphi IDE project files
+Win32/
+
+#Frontend
 node_modules/
 dist/
 .env
 frontend/tsconfig.node.tsbuildinfo
 frontend/tsconfig.app.tsbuildinfo
+bin/

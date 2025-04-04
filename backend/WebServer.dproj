@@ -3,7 +3,7 @@
         <ProjectGuid>{A8CE249A-8C08-441A-84C8-447C228F1EB8}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
-        <MainSource>API_Atendimento.dpr</MainSource>
+        <MainSource>WebServer.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -57,7 +57,7 @@
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
-        <SanitizedProjectName>API_Atendimento</SanitizedProjectName>
+        <SanitizedProjectName>WebServer</SanitizedProjectName>
         <DCC_UnitSearchPath>..\modules\.dcp;..\modules\.dcu;..\modules;..\modules\horse\src;modules\.dcp;modules\.dcu;modules;modules\horse\src;modules\jhonson\src;..\modules\jhonson\src;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
@@ -79,6 +79,8 @@
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
+        <VerInfo_Locale>1046</VerInfo_Locale>
+        <VerInfo_Keys>FileVersion=1.0.0.0</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -90,7 +92,7 @@
         <VerInfo_MinorVer>3</VerInfo_MinorVer>
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=10.3.1.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=10.3.1.0;Comments=</VerInfo_Keys>
-        <DCC_ExeOutput>C:\GSOFT\API_Atendimento\</DCC_ExeOutput>
+        <DCC_ExeOutput>..\bin</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -107,7 +109,7 @@
         <VerInfo_Release>1</VerInfo_Release>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=10.3.1.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=10.3.1.0;Comments=</VerInfo_Keys>
-        <DCC_ExeOutput>C:\GSOFT\API_Atendimento\</DCC_ExeOutput>
+        <DCC_ExeOutput>..\bin</DCC_ExeOutput>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -115,7 +117,6 @@
         </DelphiCompile>
         <DCCReference Include="src\view\api.view.main.pas">
             <Form>ViewMain</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="src\controller\api.controller.perguntas.pas"/>
         <DCCReference Include="src\server\api.server.pas"/>
@@ -123,12 +124,10 @@
         <DCCReference Include="src\controller\contract\api.controller.contract.pas"/>
         <DCCReference Include="src\repository\api.repository.perguntas.pas">
             <Form>PerguntasRepository</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\database\api.database.pas">
             <Form>Database</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\service\api.service.perguntas.pas"/>
@@ -139,13 +138,13 @@
         <DCCReference Include="src\model\api.model.respostas.pas"/>
         <DCCReference Include="src\repository\api.repository.respostas.pas">
             <Form>RespostasRepository</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="src\database\migrations\api.database.migrations.v0001.pas"/>
         <DCCReference Include="src\utils\api.utils.database.pas"/>
         <DCCReference Include="src\database\migrations\api.database.migrations.pas"/>
         <DCCReference Include="src\controller\api.controller.home.pas"/>
+        <DCCReference Include="src\controller\api.controller.login.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -164,7 +163,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">API_Atendimento.dpr</Source>
+                    <Source Name="MainSource">WebServer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
@@ -172,15 +171,15 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\API_Atendimento.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="C:\GSOFT\API_Atendimento\WebServer.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>API_Atendimento.exe</RemoteName>
+                        <RemoteName>WebServer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\GSOFT\API_Atendimento\API_Atendimento.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="..\bin\WebServer.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>API_Atendimento.exe</RemoteName>
+                        <RemoteName>WebServer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
