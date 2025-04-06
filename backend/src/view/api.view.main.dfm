@@ -79,6 +79,14 @@ object ViewMain: TViewMain
       TabOrder = 3
       OnClick = Button1Click
     end
+    object cbxManterAberto: TCheckBox
+      Left = 200
+      Top = 64
+      Width = 265
+      Height = 17
+      Caption = 'Manter programa aberto na bandeja do Windows'
+      TabOrder = 4
+    end
   end
   object TrayIcon: TTrayIcon
     OnClick = TrayIconClick

@@ -6,11 +6,9 @@ uses
   Horse,
   Horse.Jhonson,
   Horse.CORS,
-  api.controller.perguntas,
-  api.controller.respostas,
-  api.controller.home,
+  Horse.StaticFiles,
   api.controller.login,
-  Horse.StaticFiles;
+  api.controller.pdv;
 
 type
   TStatusCode = Integer;
@@ -39,21 +37,15 @@ implementation
 { TServer }
 
 constructor TServer.Create;
-var
-  perguntas: TPerguntasController;
-  respostas: TRespostasController;
-  home: THomeController;
-  login: TLoginController;
+const
+  prefix = '/api';
 begin
   THorse.use(Jhonson());
-  //Carregar as rotas
-  perguntas.New();
-  respostas.New();
   THorse.Use('/', HorseStaticFile('www', ['index.html']));
-
   THorse.Use(CORS);
 
-  login.New();
+  LoginController(prefix);
+  PdvController(prefix);
 end;
 
 destructor TServer.Destroy;

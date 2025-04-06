@@ -20,6 +20,7 @@ type
     lblStatus: TLabel;
     Chromium1: TChromium;
     Button1: TButton;
+    cbxManterAberto: TCheckBox;
     procedure btnIniciarClick(Sender: TObject);
     procedure btnPararClick(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
@@ -87,7 +88,7 @@ end;
 
 procedure TViewMain.Button1Click(Sender: TObject);
 begin
-    Chromium1.LoadURL('https://zustand-demo.pmnd.rs/');
+  Chromium1.LoadURL('https://zustand-demo.pmnd.rs/');
 end;
 
 procedure TViewMain.Chromium1AfterCreated(Sender: TObject;
@@ -160,6 +161,13 @@ end;
 
 procedure TViewMain.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  if not cbxManterAberto.Checked then
+  begin
+    if btnIniciar.Enabled then
+      btnParar.Click();
+    Exit;
+  end;
+
   if btnIniciar.Enabled then
     Exit;
 

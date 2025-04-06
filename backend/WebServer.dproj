@@ -118,33 +118,23 @@
         <DCCReference Include="src\view\api.view.main.pas">
             <Form>ViewMain</Form>
         </DCCReference>
-        <DCCReference Include="src\controller\api.controller.perguntas.pas"/>
         <DCCReference Include="src\server\api.server.pas"/>
-        <DCCReference Include="src\controller\api.controller.respostas.pas"/>
-        <DCCReference Include="src\controller\contract\api.controller.contract.pas"/>
-        <DCCReference Include="src\repository\api.repository.perguntas.pas">
-            <Form>PerguntasRepository</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\database\api.database.pas">
             <Form>Database</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="src\service\api.service.perguntas.pas"/>
-        <DCCReference Include="src\model\api.model.perguntas.pas"/>
         <DCCReference Include="src\utils\api.utils.json.pas"/>
         <DCCReference Include="src\utils\api.utils.guid.pas"/>
-        <DCCReference Include="src\service\api.service.respostas.pas"/>
-        <DCCReference Include="src\model\api.model.respostas.pas"/>
-        <DCCReference Include="src\repository\api.repository.respostas.pas">
-            <Form>RespostasRepository</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="src\database\migrations\api.database.migrations.v0001.pas"/>
         <DCCReference Include="src\utils\api.utils.database.pas"/>
         <DCCReference Include="src\database\migrations\api.database.migrations.pas"/>
-        <DCCReference Include="src\controller\api.controller.home.pas"/>
         <DCCReference Include="src\controller\api.controller.login.pas"/>
+        <DCCReference Include="src\controller\api.controller.pdv.pas"/>
+        <DCCReference Include="src\utils\api.utils.windows.pas"/>
+        <DCCReference Include="src\view\api.view.pdv.pas">
+            <Form>PdvView</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -166,12 +156,14 @@
                     <Source Name="MainSource">WebServer.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k260.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp260.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="C:\GSOFT\API_Atendimento\WebServer.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName="..\bin\WebServer.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>WebServer.exe</RemoteName>
                         <Overwrite>true</Overwrite>
