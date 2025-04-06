@@ -42,8 +42,6 @@ end;
 
 begin
   System.ReportMemoryLeaksOnShutdown := True;
-//  GlobalCEFApp := TCefApplication.Create;
-//  GlobalCEFApp.Cache := 'cache'; // opcional
 
   GlobalCEFApp                            := TCefApplication.Create;
   GlobalCEFApp.cache                      := 'cache';

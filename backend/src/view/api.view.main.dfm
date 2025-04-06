@@ -86,6 +86,7 @@ object ViewMain: TViewMain
     Top = 8
   end
   object Chromium1: TChromium
+    OnBeforeContextMenu = Chromium1BeforeContextMenu
     OnAfterCreated = Chromium1AfterCreated
     Left = 32
     Top = 224

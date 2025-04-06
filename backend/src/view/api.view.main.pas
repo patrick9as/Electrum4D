@@ -29,6 +29,9 @@ type
     procedure Chromium1AfterCreated(Sender: TObject;
       const browser: ICefBrowser);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure Chromium1BeforeContextMenu(Sender: TObject;
+      const browser: ICefBrowser; const frame: ICefFrame;
+      const params: ICefContextMenuParams; const model: ICefMenuModel);
   private
     { Private declarations }
   public
@@ -74,6 +77,26 @@ procedure TViewMain.Chromium1AfterCreated(Sender: TObject;
 begin
 //  Chromium1.LoadURL('https://zustand-demo.pmnd.rs/');
   Chromium1.LoadURL('localhost:9000');
+end;
+
+procedure TViewMain.Chromium1BeforeContextMenu(Sender: TObject;
+  const browser: ICefBrowser; const frame: ICefFrame;
+  const params: ICefContextMenuParams; const model: ICefMenuModel);
+var
+  i: Integer;
+  itemLabel: ustring;
+begin
+  //Remover o devtools do context menu
+  for i := model.GetCount - 1 downto 0 do
+  begin
+    itemLabel := LowerCase(model.GetLabelAt(i));
+
+    if (Pos('nspect', itemLabel) > 0) or (Pos('nspecionar', itemLabel) > 0) then
+      model.RemoveAt(i);
+
+    if (Pos('source', itemLabel) > 0) or (Pos('fonte', itemLabel) > 0) then
+      model.RemoveAt(i);
+  end;
 end;
 
 procedure TViewMain.FormClose(Sender: TObject; var Action: TCloseAction);
