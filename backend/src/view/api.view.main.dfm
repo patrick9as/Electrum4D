@@ -71,21 +71,29 @@ object ViewMain: TViewMain
       Text = '9000'
     end
     object Button1: TButton
-      Left = 376
-      Top = 32
-      Width = 75
+      Left = 496
+      Top = 3
+      Width = 89
       Height = 25
-      Caption = 'Button1'
+      Caption = 'Abrir Zustand'
       TabOrder = 3
       OnClick = Button1Click
     end
     object cbxManterAberto: TCheckBox
       Left = 200
-      Top = 64
+      Top = 62
       Width = 265
       Height = 17
       Caption = 'Manter programa aberto na bandeja do Windows'
       TabOrder = 4
+    end
+    object cbxBloquearDevTools: TCheckBox
+      Left = 200
+      Top = 39
+      Width = 217
+      Height = 17
+      Caption = 'Bloquear ferramentas de desenvolvedor'
+      TabOrder = 5
     end
   end
   object TrayIcon: TTrayIcon
