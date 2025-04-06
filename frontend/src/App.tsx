@@ -1,61 +1,23 @@
+import './index.css'
 import { useState } from 'react'
-import './App.css'
-import axios from 'axios'
-import toast, { Toaster } from 'react-hot-toast'
-
-const api = axios.create({
-  baseURL: 'http://localhost:9000/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 10000,
-})
+import { Toaster } from 'react-hot-toast'
+import { Menu } from './components/menu'
+import { Login } from './components/login'
 
 function App() {
-  const [user, setUser] = useState('')
-  const [password, setPassword] = useState('')
-  const [authenticated, setAuthenticated] = useState(false)
-  
 
-  const handleLogin = () => {
-    api.post('/login', { usuario: user, senha: password })
-      .then(() => {
-        console.log('oi')
-          toast.success('Login realizado com sucesso!');
-          setAuthenticated(true)
-      })
-      .catch(
-        () => toast.error('Email ou senha errado')
-      );
-  }
+  const [authenticated, setAuthenticated] = useState(false)
 
   return (
-    <>
-      <input type="text" value={user} onChange={(e) => setUser(e.target.value)}/>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-      <button onClick={() => handleLogin()}>Submit</button>
-      {authenticated && (
+    <div className="w-full flex flex-col bg-[#FFFDFA] h-[100vh]">
+      {authenticated ? (
         <div>
-          <p>Logado</p>
-          <button onClick={() => setAuthenticated(false)}>Logout</button>
-
-          <button
-            onClick={() => {
-              api.get('/pdv/open')
-                .then(() => {
-                  toast.success('Abrindo PDV');
-                }
-                )
-            }}
-          >
-            Abrir PDV
-          </button>
-
+          <Menu onLogout={() => setAuthenticated(false)}/>
         </div>
-          )}
+      ) : <Login onAuthenticated={setAuthenticated}/>}
 
       <Toaster />
-    </>
+    </div>
   )
 }
 

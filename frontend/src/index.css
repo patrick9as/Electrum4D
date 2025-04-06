@@ -1,7 +1,11 @@
-:root {
+@import "tailwindcss";
+
+#root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  width: 100%;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -25,9 +29,10 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  width: 100%;
   min-height: 100vh;
+  height: fit-content;
+  overscroll-behavior: none;
 }
 
 h1 {
