@@ -1,4 +1,4 @@
-unit api.view.main;
+ï»¿unit api.view.main;
 
 interface
 
@@ -21,6 +21,7 @@ type
     Chromium1: TChromium;
     Button1: TButton;
     cbxManterAberto: TCheckBox;
+    cbxBloquearDevTools: TCheckBox;
     procedure btnIniciarClick(Sender: TObject);
     procedure btnPararClick(Sender: TObject);
     procedure TrayIconClick(Sender: TObject);
@@ -68,7 +69,7 @@ implementation
 procedure TViewMain.btnIniciarClick(Sender: TObject);
 begin
   api.Start(StrToInt(edtPorta.Text));
-  lblStatus.Caption := 'Serviço iniciado';
+  lblStatus.Caption := 'ServiÃ§o iniciado';
   edtPorta.Enabled := False;
   btnIniciar.Enabled := False;
   btnParar.Enabled := True;
@@ -80,7 +81,7 @@ end;
 procedure TViewMain.btnPararClick(Sender: TObject);
 begin
   api.Stop();
-  lblStatus.Caption := 'Serviço parado';
+  lblStatus.Caption := 'ServiÃ§o parado';
   edtPorta.Enabled := True;
   btnIniciar.Enabled := True;
   btnParar.Enabled := False;
@@ -105,19 +106,15 @@ var
   i: Integer;
   itemLabel: ustring;
 begin
-  //Remover o devtools do context menu
+  if not cbxBloquearDevTools.Checked then
+    Exit;
+  //Deixa sÃ³ o copiar e colar
   for i := model.GetCount - 1 downto 0 do
   begin
     itemLabel := LowerCase(model.GetLabelAt(i));
 
     if (Pos('copy', itemLabel) = 0) and (Pos('paste', itemLabel) = 0) then
       model.RemoveAt(i);
-
-//    if (Pos('nspect', itemLabel) > 0) or (Pos('nspecionar', itemLabel) > 0) then
-//      model.RemoveAt(i);
-//
-//    if (Pos('source', itemLabel) > 0) or (Pos('fonte', itemLabel) > 0) then
-//      model.RemoveAt(i);
   end;
 end;
 
@@ -127,12 +124,23 @@ procedure TViewMain.Chromium1PreKeyEvent(Sender: TObject;
 var
   key: Integer;
   mods: Integer;
+  character: WideString;
 begin
+  if not cbxBloquearDevTools.Checked then
+    Exit;
+
+  Result := False;
+  isKeyboardShortcut := False;
   key := event^.windows_key_code;
   mods := event^.modifiers;
 
-  if key in [VK_F1, VK_F5, VK_F12] then
-    Result := True;
+  if event^.kind = KEYEVENT_RAWKEYDOWN then
+  begin
+    if event^.windows_key_code in [VK_F1, VK_F5, VK_F12] then
+    begin
+      Result := True;
+    end;
+  end;
 
   // Ctrl + U
   if (key = Ord('U')) and (mods and EVENTFLAG_CONTROL_DOWN <> 0) then
@@ -151,7 +159,7 @@ begin
      (mods and EVENTFLAG_ALT_DOWN <> 0) then
     Result := True;
 
-   // Bloquear Alt + < (voltar) e Alt + > (avançar)
+   // Bloquear Alt + < (voltar) e Alt + > (avanÃ§ar)
   if (mods and EVENTFLAG_ALT_DOWN <> 0) and
      (key in [VK_LEFT, VK_RIGHT]) then
   begin
