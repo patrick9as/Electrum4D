@@ -32,6 +32,9 @@ type
     procedure Chromium1BeforeContextMenu(Sender: TObject;
       const browser: ICefBrowser; const frame: ICefFrame;
       const params: ICefContextMenuParams; const model: ICefMenuModel);
+    procedure Chromium1PreKeyEvent(Sender: TObject; const browser: ICefBrowser;
+      const event: PCefKeyEvent; osEvent: TCefEventHandle;
+      out isKeyboardShortcut, Result: Boolean);
   private
     { Private declarations }
   public
@@ -41,6 +44,21 @@ type
 var
   ViewMain: TViewMain;
   api: TServer;
+
+const
+  EVENTFLAG_NONE          = 0;
+  EVENTFLAG_CAPS_LOCK_ON  = 1 shl 0;
+  EVENTFLAG_SHIFT_DOWN    = 1 shl 1;
+  EVENTFLAG_CONTROL_DOWN  = 1 shl 2;
+  EVENTFLAG_ALT_DOWN      = 1 shl 3;
+  EVENTFLAG_LEFT_MOUSE_BUTTON = 1 shl 4;
+  EVENTFLAG_MIDDLE_MOUSE_BUTTON = 1 shl 5;
+  EVENTFLAG_RIGHT_MOUSE_BUTTON = 1 shl 6;
+  EVENTFLAG_COMMAND_DOWN  = 1 shl 7;
+  EVENTFLAG_NUM_LOCK_ON   = 1 shl 8;
+  EVENTFLAG_IS_KEY_PAD    = 1 shl 9;
+  EVENTFLAG_IS_LEFT       = 1 shl 10;
+  EVENTFLAG_IS_RIGHT      = 1 shl 11;
 
 implementation
 
@@ -91,11 +109,52 @@ begin
   begin
     itemLabel := LowerCase(model.GetLabelAt(i));
 
-    if (Pos('nspect', itemLabel) > 0) or (Pos('nspecionar', itemLabel) > 0) then
+    if (Pos('copy', itemLabel) = 0) and (Pos('paste', itemLabel) = 0) then
       model.RemoveAt(i);
 
-    if (Pos('source', itemLabel) > 0) or (Pos('fonte', itemLabel) > 0) then
-      model.RemoveAt(i);
+//    if (Pos('nspect', itemLabel) > 0) or (Pos('nspecionar', itemLabel) > 0) then
+//      model.RemoveAt(i);
+//
+//    if (Pos('source', itemLabel) > 0) or (Pos('fonte', itemLabel) > 0) then
+//      model.RemoveAt(i);
+  end;
+end;
+
+procedure TViewMain.Chromium1PreKeyEvent(Sender: TObject;
+  const browser: ICefBrowser; const event: PCefKeyEvent;
+  osEvent: TCefEventHandle; out isKeyboardShortcut, Result: Boolean);
+var
+  key: Integer;
+  mods: Integer;
+begin
+  key := event^.windows_key_code;
+  mods := event^.modifiers;
+
+  if key in [VK_F1, VK_F5, VK_F12] then
+    Result := True;
+
+  // Ctrl + U
+  if (key = Ord('U')) and (mods and EVENTFLAG_CONTROL_DOWN <> 0) then
+    Result := True;
+
+  // Ctrl + Shift + I / J / C / M / E
+  if (mods and EVENTFLAG_CONTROL_DOWN <> 0) and (mods and EVENTFLAG_SHIFT_DOWN <> 0) then
+  begin
+    if key in [Ord('I'), Ord('J'), Ord('C'), Ord('M'), Ord('E')] then
+      Result := True;
+  end;
+
+  // Ctrl + Alt + I (em algumas distros do Chromium)
+  if (key = Ord('I')) and
+     (mods and EVENTFLAG_CONTROL_DOWN <> 0) and
+     (mods and EVENTFLAG_ALT_DOWN <> 0) then
+    Result := True;
+
+   // Bloquear Alt + < (voltar) e Alt + > (avançar)
+  if (mods and EVENTFLAG_ALT_DOWN <> 0) and
+     (key in [VK_LEFT, VK_RIGHT]) then
+  begin
+    Result := True;
   end;
 end;
 

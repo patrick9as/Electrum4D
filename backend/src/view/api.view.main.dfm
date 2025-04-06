@@ -87,6 +87,7 @@ object ViewMain: TViewMain
   end
   object Chromium1: TChromium
     OnBeforeContextMenu = Chromium1BeforeContextMenu
+    OnPreKeyEvent = Chromium1PreKeyEvent
     OnAfterCreated = Chromium1AfterCreated
     Left = 32
     Top = 224
