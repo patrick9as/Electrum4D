@@ -1,4 +1,4 @@
-unit api.server;
+﻿unit api.server;
 
 interface
 
@@ -40,10 +40,12 @@ constructor TServer.Create;
 const
   prefix = '/api';
 begin
+  //Dependências
   THorse.use(Jhonson());
-  THorse.Use('/', HorseStaticFile('www', ['index.html']));
   THorse.Use(CORS);
 
+  //Registro das rotas
+  THorse.Use('/', HorseStaticFile('www', ['index.html']));
   LoginController(prefix);
   PdvController(prefix);
 end;
