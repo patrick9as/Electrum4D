@@ -1,10 +1,9 @@
 object ViewMain: TViewMain
   Left = 0
   Top = 0
-  BorderStyle = bsDialog
   Caption = 'WebServer'
-  ClientHeight = 489
-  ClientWidth = 592
+  ClientHeight = 479
+  ClientWidth = 599
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,6 +12,7 @@ object ViewMain: TViewMain
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
@@ -21,19 +21,22 @@ object ViewMain: TViewMain
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
     Top = 97
-    Width = 592
-    Height = 392
+    Width = 599
+    Height = 382
     Align = alClient
     TabStop = True
     TabOrder = 0
+    ExplicitWidth = 592
+    ExplicitHeight = 392
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 592
+    Width = 599
     Height = 97
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 592
     object lblStatus: TLabel
       Left = 8
       Top = 8
