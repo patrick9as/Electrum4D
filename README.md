@@ -1,4 +1,4 @@
-# 🧠 WebServer - Delphi + React Hybrid Framework
+# 🧠 Electrum4D - Delphi + React Hybrid Framework
 
 Este projeto tem como objetivo modernizar aplicações Delphi legadas através de uma arquitetura híbrida, combinando a robustez do Delphi com interfaces modernas desenvolvidas em React + Vite.
 
