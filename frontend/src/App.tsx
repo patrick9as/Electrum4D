@@ -16,7 +16,8 @@ function App() {
         </div>
       ) : <Login onAuthenticated={setAuthenticated}/>}
 
-      <Toaster />
+
+      <Toaster position='top-right'/>
     </div>
   )
 }
