@@ -70,7 +70,3 @@ Abra o projeto no Delphi (qualquer versão compatível com Horse e CEF4Delphi) e
 ## 🤝 Contribuições
 
 Ideias, sugestões, issues e PRs são sempre bem-vindos! Se você também está tentando modernizar um legado em Delphi, esse projeto é pra você.
-
----
-
-Se curtir esse formato, posso adaptar com mais detalhes (prints, GIFs, badges, etc.). Quer que eu gere uma versão `.md` pra você colar direto no repositório?
